@@ -3,6 +3,7 @@ const fs = require('fs')
 const CO2_KEY = "carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent";
 
 let CO2_Array = [];
+let current_index = 1;
 
 const makeJSONArray = (item) => {
 
@@ -36,10 +37,10 @@ const makeJSONArray = (item) => {
 }
 
 
-const writeToJsonFile = (data) => {
+const writeToJsonFile = (data, filename) => {
 
   let jsonString = JSON.stringify(data);
-  fs.appendFile(`./json/${CO2_KEY}.json`, jsonString, function (err) {
+  fs.appendFile(`./json/${filename}.json`, jsonString, function (err) {
     if (err) throw err;
     console.log('Saved!');
   });
@@ -50,16 +51,12 @@ fs.readFile('./greenhouse_gas_inventory_data_data.csv', 'utf8' , (err, data) => 
     console.error(err)
     return
   }
-  
+
   let dataArray = data.split("\n");
 
-//   dataArray.forEach((item)=> {
-//     console.log("\n");
-//     console.log(item);
-//   })
-
-  for(let i = 1; i < 150; i++) {
+  for(let i = 1; dataArray[i].includes(CO2_KEY); i++) {
       makeJSONArray(dataArray[i]);
+      current_index++;
   }
 
   CO2_Array.forEach((item) => {
@@ -67,6 +64,7 @@ fs.readFile('./greenhouse_gas_inventory_data_data.csv', 'utf8' , (err, data) => 
   })
 
   writeToJsonFile(CO2_Array);
+  console.log(current_index);
   // fs.access('./json', fs.F_OK, (err) => {
   //   if (err) {
   //     console.error(err)
