@@ -56,7 +56,7 @@ const writeToJsonFile = (data, filename) => {
 
   // Creates file with given filename if doesn't exist and
   // Writes data into the file
-  fs.appendFile(`./json/${filename}.json`, jsonString, function (err) {
+  fs.writeFile(`./json/${filename}.json`, jsonString, function (err) {
     if (err) throw err;
     console.log(`Data Written to ${filename}.json`);
   });
