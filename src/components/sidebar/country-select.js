@@ -5,15 +5,20 @@ import co2_emissions from '../../json/carbon_dioxide_co2_emissions_without_land_
 
 export default function CountrySelect() {
     //Write logic to render all countries as dropdown options
-    const options = [
-        'Country One', 'Country Two', 'Country Three'
-    ];
     
-    const defaultOption = options[0];
+    let countries = []
+
+    co2_emissions.forEach((emissionType) => {
+        countries.push(Object.keys(emissionType)[0]);
+    })
+    
+    
+    const defaultOption = countries[0];
     console.log(co2_emissions);
     return(
         <div className="country-select">
-            <Dropdown options={options} value={defaultOption} placeholder="Select an option" />
+            <label>Select Country</label>
+            <Dropdown options={countries} value={defaultOption} placeholder="Select an option" />
         </div>
     )
 }
