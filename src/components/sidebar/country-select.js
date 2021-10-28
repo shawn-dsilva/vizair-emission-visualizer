@@ -24,8 +24,8 @@ export default function CountrySelect({emissionType}) {
     const [countryList, setCountryList] = useState([]);
 
     useEffect(() => {
-        makeCountryList();
-    }, [])
+        makeCountryList(emissionType);
+    }, [emissionType])
 
     const getEmissionData = (type) => {
         return fetch(`./json/${type}.json`)
@@ -33,8 +33,8 @@ export default function CountrySelect({emissionType}) {
     };
 
 
-    const makeCountryList = () => {
-        getEmissionData(EMISSION_TYPES.CO2).then( emissionData=> {
+    const makeCountryList = (emissionType) => {
+        getEmissionData(EMISSION_TYPES[emissionType]).then( emissionData=> {
             let countries = []
             emissionData.forEach((emissionType) => {
                 countries.push(Object.keys(emissionType)[0]);
