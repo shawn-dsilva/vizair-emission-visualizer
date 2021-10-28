@@ -5,7 +5,16 @@ import Dropdown from 'react-dropdown'
 export default function ParameterSelect({option, setOption}) {
     //Write logic to render all countries as dropdown options
     const options = [
-        'Carbon Dioxide (CO2)', 'Greenhouse Gases (GHG) Type 1', 'Greenhouse Gases (GHG) Type 2','Hydrofluorocarbons (HFC)', 'Methane (CH4)', 'Nitrogen Triflouride (NF3)', 'Nitrous Oxide (N2O)', 'Perflourocarbons (PFC)', 'Sulphur Hexaflouride (SF6)', 'Unspecified HFC & PFC Mix'
+        {value:'CO2', label:'Carbon Dioxide (CO2)'}, 
+        {value:'GHG1',label:'Greenhouse Gases (GHG) Type 1'}, 
+        {value:'GHG2', label:'Greenhouse Gases (GHG) Type 2'},
+        {value:'HFC', label:'Hydrofluorocarbons (HFC)'}, 
+        {value:'CH4', label:'Methane (CH4)'}, 
+        {value:'NF3', label:'Nitrogen Triflouride (NF3)'}, 
+        {value:'N2O', label:'Nitrous Oxide (N2O)'}, 
+        {value:'PFC', label:'Perflourocarbons (PFC)'}, 
+        {value:'SF6', label:'Sulphur Hexaflouride (SF6)'}, 
+        {value:'MIX', label:'Unspecified HFC & PFC Mix'}
     ];
     const defaultOption = options[0];
 

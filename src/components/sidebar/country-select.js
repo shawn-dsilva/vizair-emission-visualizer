@@ -1,24 +1,56 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import 'react-dropdown/style.css';
 import Dropdown from 'react-dropdown'
 import co2_emissions from '../../json/carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent.json'
 
-export default function CountrySelect() {
+export default function CountrySelect({emissionType}) {
     //Write logic to render all countries as dropdown options
     
-    let countries = []
+    const EMISSION_TYPES = {
+        
+    'CO2': 'carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent' , 
+    'GHG1':'greenhouse_gas_ghgs_emissions_including_indirect_co2_without_lulucf_in_kilotonne_co2_equivalent', 
+    'GHG2':'greenhouse_gas_ghgs_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent',
+    'HFC':'hydrofluorocarbons_hfcs_emissions_in_kilotonne_co2_equivalent', 
+    'CH4':'methane_ch4_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent', 
+    'NF3':'nitrogen_trifluoride_nf3_emissions_in_kilotonne_co2_equivalent', 
+    'N2O':'nitrous_oxide_n2o_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent', 
+    'PFC':'perfluorocarbons_pfcs_emissions_in_kilotonne_co2_equivalent', 
+    'SF6':'sulphur_hexafluoride_sf6_emissions_in_kilotonne_co2_equivalent', 
+    'MIX':'unspecified_mix_of_hydrofluorocarbons_hfcs_and_perfluorocarbons_pfcs_emissions_in_kilotonne_co2_equivalent'
+        
+    }
 
-    co2_emissions.forEach((emissionType) => {
-        countries.push(Object.keys(emissionType)[0]);
-    })
+    const [countryList, setCountryList] = useState([]);
+
+    useEffect(() => {
+        makeCountryList();
+    }, [])
+
+    const getEmissionData = (type) => {
+        return fetch(`./json/${type}.json`)
+            .then(response => response.json());
+    };
+
+
+    const makeCountryList = () => {
+        getEmissionData(EMISSION_TYPES.CO2).then( emissionData=> {
+            let countries = []
+            emissionData.forEach((emissionType) => {
+                countries.push(Object.keys(emissionType)[0]);
+            })
+            console.log(countries);
+            setCountryList(countries);
+        });
+    }
+   
     
-    
-    const defaultOption = countries[0];
-    console.log(co2_emissions);
+    // let options = makeCountryList();
+    // const defaultOption = options[0];
     return(
         <div className="country-select">
-            <label>Select Country</label>
-            <Dropdown options={countries} value={defaultOption} placeholder="Select an option" />
+            <label>Available Countries</label>
+            <Dropdown options={countryList} value={countryList[0]} placeholder="Select a Country" />
         </div>
     )
 }
