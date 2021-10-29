@@ -1,17 +1,40 @@
-import React from 'react'
+import React,{ useEffect, useMemo, useState } from 'react'
 import { Chart } from 'react-charts'
  
-export default function Graph() {
-  const data = React.useMemo(
+export default function Graph({country}) {
+
+  const [data,setData] = useState([]);
+
+  const generateData = (country) => {
+    let dataPoints = [];
+
+    for(const key in country) {
+      let datum = {
+        label: key,
+        data:[]
+      }
+
+      country[key].forEach((item) => {
+        datum.data.push(Object.entries(item)[0]);
+      });
+
+      console.log(datum);
+      dataPoints.push(datum);
+    }
+    setData(dataPoints);
+  }
+
+  useEffect(()=> {
+    generateData(country);
+    console.log(data);
+  },[country]);
+
+  const dataTemp = React.useMemo(
     () => [
       {
         label: 'Series 1',
         data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
       },
-      {
-        label: 'Series 2',
-        data: [[0, 3], [1, 1], [2, 5], [3, 6], [4, 4]]
-      }
     ],
     []
   )
@@ -27,7 +50,7 @@ export default function Graph() {
   return (
     <div
       style={{
-        width: '400px',
+        width: '500px',
         height: '300px'
       }}
       className="chart"

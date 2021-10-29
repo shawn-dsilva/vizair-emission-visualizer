@@ -3,7 +3,7 @@ import 'react-dropdown/style.css';
 import Dropdown from 'react-dropdown'
 import co2_emissions from '../../json/carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent.json'
 
-export default function CountrySelect({emissionType}) {
+export default function CountrySelect({emissionType, setDatapoints, datapoints}) {
     //Write logic to render all countries as dropdown options
     
     const EMISSION_TYPES = {
@@ -22,6 +22,7 @@ export default function CountrySelect({emissionType}) {
     }
 
     const [countryList, setCountryList] = useState([]);
+    const [country, setCountry] = useState();
 
     useEffect(() => {
         makeCountryList(emissionType);
@@ -37,20 +38,28 @@ export default function CountrySelect({emissionType}) {
         getEmissionData(EMISSION_TYPES[emissionType]).then( emissionData=> {
             let countries = []
             emissionData.forEach((emissionType) => {
-                countries.push(Object.keys(emissionType)[0]);
+                const labelValuePair = {'value': emissionType, 'label': Object.keys(emissionType)[0]}
+                countries.push(labelValuePair);
             })
             console.log(countries);
             setCountryList(countries);
         });
     }
    
+    const onSelect = (selection) => {
+        // setDatapoints(rawEmissionDataset[selection.value])
+        setCountry(selection.label);
+        setDatapoints(selection.value);
+    }
     
     // let options = makeCountryList();
     // const defaultOption = options[0];
     return(
         <div className="country-select">
             <label>Available Countries</label>
-            <Dropdown options={countryList} value={countryList[0]} placeholder="Select a Country" />
+            <Dropdown options={countryList} value={countryList[0]} onChange={onSelect} placeholder="Select a Country" />
+            <span>Your Selection : {country}</span>
+
         </div>
     )
 }
