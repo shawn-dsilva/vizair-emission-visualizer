@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Graph from './graph';
 import CountrySelect from './country-select';
 import ParameterSelect from './parameter-select';
+import YearRangeSelect from './year-range-select';
 
 export default function Sidebar() {
   const [option, setOption] = useState('Carbon Dioxide (CO2)');
@@ -85,12 +86,15 @@ export default function Sidebar() {
     }
 ]}
 ])
+  const [startYear, setStartYear] = useState(1990);
+  const [endYear, setEndYear] = useState(2014);
 
   return (
     <div className="sidebar">
       <div className="dropdowns">
         <ParameterSelect option={option} setOption={setOption} />
         <CountrySelect emissionType={option} setDatapoints={setYearlyEmissionDataset} datapoints={yearlyEmissionDataset}/>
+        <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear}/>
       </div>
       <Graph countryList={yearlyEmissionDataset} />
     </div>

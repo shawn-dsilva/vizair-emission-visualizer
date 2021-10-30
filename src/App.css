@@ -32,7 +32,7 @@
   margin: 1rem 0;
 }
 
-.parameter-select label, .country-select label {
+.parameter-select label, .country-select label, .year-select label {
   font-size: 1rem;
   font-weight: bold;
   margin: 0.5rem 0;
@@ -50,4 +50,18 @@
 
 .tooltip-wrap svg {
   width: 20px!important;
+}
+
+.year-select{
+  margin: 2rem 0;
+}
+
+.year-select-flex {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.year-select-dropdown {
+  width: 45%;
 }
