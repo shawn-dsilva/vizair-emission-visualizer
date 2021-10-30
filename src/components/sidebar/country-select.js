@@ -22,7 +22,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
     }
 
     const [countryList, setCountryList] = useState([]);
-    const [country, setCountry] = useState();
+    const [country, setCountry] = useState('Australia');
 
     useEffect(() => {
         makeCountryList(emissionType);
@@ -50,6 +50,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
         // setDatapoints(rawEmissionDataset[selection.value])
         setCountry(selection.label);
         setDatapoints(selection.value);
+        console.log(selection.value);
     }
     
     // let options = makeCountryList();

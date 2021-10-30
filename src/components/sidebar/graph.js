@@ -15,7 +15,9 @@ export default function Graph({country}) {
       }
 
       country[key].forEach((item) => {
-        datum.data.push(Object.entries(item)[0]);
+        let yearValArray = Object.entries(item)[0];
+        let yearValObject = { primary: parseInt(yearValArray[0]), secondary: parseInt(yearValArray[1])};
+        datum.data.push(yearValObject);
       });
 
       console.log(datum);
@@ -39,24 +41,29 @@ export default function Graph({country}) {
     []
   )
  
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' }
-    ],
-    []
-  )
+  // const axes = React.useMemo(
+  //   () => [
+  //     { primary: true, type: 'linear', position: 'bottom' },
+  //     { type: 'linear', position: 'left'}
+  //   ],
+  //   []
+  // )
+
+  const axes =  [
+    { primary: true, type: 'linear', position: 'bottom' },
+    { type: 'linear', position: 'left'}
+  ]
  
   return (
     <div
       style={{
-        width: '500px',
-        height: '300px'
+        width: '800px',
+        height: '400px'
       }}
       className="chart"
     >
       <p>Example Graph</p>
-      <Chart data={data} axes={axes} />
+      <Chart data={data} axes={axes} tooltip />
     </div>
   )
 }
