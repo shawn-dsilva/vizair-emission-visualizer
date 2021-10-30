@@ -28,6 +28,10 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
         makeCountryList(emissionType);
     }, [emissionType])
 
+    // useEffect(() => {
+    //     setDatapoints(countryList[0].value);
+    // }, [countryList])
+
     const getEmissionData = (type) => {
         return fetch(`./json/${type}.json`)
             .then(response => response.json());
@@ -41,8 +45,10 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
                 const labelValuePair = {'value': emissionType, 'label': Object.keys(emissionType)[0]}
                 countries.push(labelValuePair);
             })
-            console.log(countries);
+            console.log(countries[0].value);
             setCountryList(countries);
+            setDatapoints(countries[0].value);
+
         });
     }
    

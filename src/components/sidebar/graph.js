@@ -11,12 +11,13 @@ export default function Graph({country}) {
     for(const key in country) {
       let datum = {
         label: key,
-        data:[]
+        data:[],
+        // color:'#ffff4d'
       }
 
       country[key].forEach((item) => {
         let yearValArray = Object.entries(item)[0];
-        let yearValObject = { primary: parseInt(yearValArray[0]), secondary: parseInt(yearValArray[1])};
+        let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: parseInt(yearValArray[1])};
         datum.data.push(yearValObject);
       });
 
@@ -50,20 +51,19 @@ export default function Graph({country}) {
   // )
 
   const axes =  [
-    { primary: true, type: 'linear', position: 'bottom' },
-    { type: 'linear', position: 'left'}
+    { primary: true, type: 'time', position: 'bottom',  },
+    { type: 'linear', position: 'left', }
   ]
  
   return (
     <div
       style={{
-        width: '800px',
-        height: '400px'
+        height: '400px',
       }}
       className="chart"
     >
       <p>Example Graph</p>
-      <Chart data={data} axes={axes} tooltip />
+      <Chart data={data} axes={axes} tooltip/>
     </div>
   )
 }
