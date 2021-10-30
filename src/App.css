@@ -1,7 +1,7 @@
 .App {
   height: 100vh;
   display: flex;
-  padding: 0 5rem 0 5rem;
+  padding: 0 1rem 0 1rem;
 }
 
 .sidebar {
@@ -41,4 +41,13 @@
 
 .chart {
   margin: 1rem;
+}
+
+
+.chart svg {
+  width:820px!important;
+}
+
+.tooltip-wrap svg {
+  width: 20px!important;
 }
