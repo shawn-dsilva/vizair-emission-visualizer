@@ -1,36 +1,37 @@
 import React,{ useEffect, useMemo, useState } from 'react'
 import { Chart } from 'react-charts'
  
-export default function Graph({country}) {
+export default function Graph({countryList}) {
 
   const [data,setData] = useState([]);
 
-  const generateData = (country) => {
+  const generateData = (countryList) => {
     let dataPoints = [];
-
-    for(const key in country) {
-      let datum = {
-        label: key,
-        data:[],
-        // color:'#ffff4d'
+    console.log(typeof(countryList));
+    countryList.forEach((country)=> {
+      for(const key in country) {
+        let datum = {
+          label: key,
+          data:[],
+          // color:'#ffff4d'
+        }
+  
+        country[key].forEach((item) => {
+          let yearValArray = Object.entries(item)[0];
+          let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
+          datum.data.push(yearValObject);
+        });
+          dataPoints.push(datum);
       }
+      setData(dataPoints);
+    })
 
-      country[key].forEach((item) => {
-        let yearValArray = Object.entries(item)[0];
-        let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
-        datum.data.push(yearValObject);
-      });
-
-      console.log(datum);
-      dataPoints.push(datum);
-    }
-    setData(dataPoints);
   }
 
   useEffect(()=> {
-    generateData(country);
+    generateData(countryList);
     console.log(data);
-  },[country]);
+  },[countryList]);
 
   const dataTemp = React.useMemo(
     () => [

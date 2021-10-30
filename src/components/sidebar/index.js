@@ -6,7 +6,8 @@ import ParameterSelect from './parameter-select';
 export default function Sidebar() {
   const [option, setOption] = useState('Carbon Dioxide (CO2)');
   const [country, setCountry] = useState();
-  const [yearlyEmissionDataset, setYearlyEmissionDataset] = useState({ Australia:[
+  const [yearlyEmissionDataset, setYearlyEmissionDataset] = useState([
+      { Australia:[
     {
         "2014": "393126.946994288"
     },
@@ -82,7 +83,8 @@ export default function Sidebar() {
     {
         "1990": "278265.898940768"
     }
-]})
+]}
+])
 
   return (
     <div className="sidebar">
@@ -90,7 +92,7 @@ export default function Sidebar() {
         <ParameterSelect option={option} setOption={setOption} />
         <CountrySelect emissionType={option} setDatapoints={setYearlyEmissionDataset} datapoints={yearlyEmissionDataset}/>
       </div>
-      <Graph country={yearlyEmissionDataset} />
+      <Graph countryList={yearlyEmissionDataset} />
     </div>
   );
 }

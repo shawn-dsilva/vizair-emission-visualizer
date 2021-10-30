@@ -27,7 +27,7 @@ export default function ParameterSelect({option, setOption}) {
 
     return(
         <div className="parameter-select">
-            <label>Emission Type</label>
+            <label>Select Emission Type Dataset</label>
             <Dropdown options={emissionTypes} value={option} onChange={onSelect} placeholder="Select an Emission Type" />
 
             <span>Your Selection : {option}</span>

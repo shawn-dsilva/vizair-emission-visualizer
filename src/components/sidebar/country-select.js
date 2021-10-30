@@ -22,7 +22,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
     }
 
     const [countryList, setCountryList] = useState([]);
-    const [country, setCountry] = useState('Australia');
+    const [country, setCountry] = useState(['Australia']);
 
     useEffect(() => {
         makeCountryList(emissionType);
@@ -47,15 +47,15 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
             })
             console.log(countries[0].value);
             setCountryList(countries);
-            setDatapoints(countries[0].value);
+            // setDatapoints(countries[0].value);
 
         });
     }
    
     const onSelect = (selection) => {
         // setDatapoints(rawEmissionDataset[selection.value])
-        setCountry(selection.label);
-        setDatapoints(selection.value);
+        setCountry(currCountries => [...currCountries, selection.label]);
+        setDatapoints(currDatapoints => [...currDatapoints, selection.value]);
         console.log(selection.value);
     }
     
@@ -63,9 +63,9 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
     // const defaultOption = options[0];
     return(
         <div className="country-select">
-            <label>Available Countries</label>
+            <label>Select From Available Countries</label>
             <Dropdown options={countryList} value={countryList[0]} onChange={onSelect} placeholder="Select a Country" />
-            <span>Your Selection : {country}</span>
+            <span>Selected Countries : {country+" , "} </span>
 
         </div>
     )
