@@ -45,7 +45,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
                 const labelValuePair = {'value': emissionType, 'label': Object.keys(emissionType)[0]}
                 countries.push(labelValuePair);
             })
-            console.log(countries[0].value);
+            console.log(countries);
             setCountryList(countries);
             // setDatapoints(countries[0].value);
 
