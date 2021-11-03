@@ -24,7 +24,6 @@ export default function ParameterSelect({options, setOptions, datapoints}) {
     }, [datapoints])
 
     const makeParamsList = () => {
-        console.log(datapoints);
         if(datapoints.length !== 0) {
         datapoints.forEach((country) => {
             country = Object.entries(country)[0][1];
@@ -39,7 +38,6 @@ export default function ParameterSelect({options, setOptions, datapoints}) {
 
     const makeCheckBoxList = () => {
        let  checkBoxList = emissionTypes.map( (emission,index) => {
-           console.log(emission);
            let emissionArray = emission.split('/');
            let emissionPrettyPrint = `${emissionArray[1]} (${emissionArray[0]})`;
             return (

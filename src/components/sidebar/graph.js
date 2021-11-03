@@ -1,37 +1,63 @@
 import React,{ useEffect, useMemo, useState } from 'react'
 import { Chart } from 'react-charts'
  
-export default function Graph({countryList}) {
+export default function Graph({countryList, options, startYear, endYear}) {
 
   const [data,setData] = useState([]);
+  const [plottingData, setPlottingData] = useState([]);
 
-  const generateData = (countryList) => {
+  const filterByOptions = () => {
     let dataPoints = [];
-    console.log(typeof(countryList));
-    countryList.forEach((country)=> {
+    countryList.forEach((country) => {
       for(const key in country) {
         let datum = {
           label: key,
           data:[],
           // color:'#ffff4d'
         }
-  
-        country[key].forEach((item) => {
-          let yearValArray = Object.entries(item)[0];
-          let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
-          datum.data.push(yearValObject);
-        });
-          dataPoints.push(datum);
-      }
-      setData(dataPoints);
-    })
+        console.log(country[key]);
+        let emissionArray = country[key];
+        let filteredByOptions = [];
+        options.forEach((option) => {
+          let passingItem = emissionArray.filter((emissionType) => {
+              return Object.keys(emissionType)[0] === option;
+          });
 
+          filteredByOptions.push(passingItem[0]);
+        })
+      
+        console.log(filteredByOptions);
+          // dataPoints.push(datum);
+      }
+  })
   }
 
+  // const generateData = (countryList) => {
+  //   let dataPoints = [];
+  //   console.log(typeof(countryList));
+  //   countryList.forEach((country)=> {
+  //     for(const key in country) {
+  //       let datum = {
+  //         label: key,
+  //         data:[],
+  //         // color:'#ffff4d'
+  //       }
+  
+  //       country[key].forEach((item) => {
+  //         let yearValArray = Object.entries(item)[0];
+  //         let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
+  //         datum.data.push(yearValObject);
+  //       });
+  //         dataPoints.push(datum);
+  //     }
+  //     setData(dataPoints);
+  //   })
+
+  // }
+
   useEffect(()=> {
-    generateData(countryList);
-    console.log(data);
-  },[countryList]);
+    filterByOptions();
+  },[countryList, options]);
 
   const dataTemp = React.useMemo(
     () => [
@@ -64,7 +90,7 @@ export default function Graph({countryList}) {
       }}
     >
       <p>Example Graph</p>
-      <Chart data={data} axes={axes} className="chart" tooltip/>
+      <Chart data={dataTemp} axes={axes} className="chart" tooltip/>
     </div>
   )
 }
