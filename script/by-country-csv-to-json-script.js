@@ -64,12 +64,15 @@ const makeJSONArray = (item) => {
 // Writes content of holdingArray into file, filename is supposed to be emission type
 const writeToJsonFile = () => {
 
+  // List of countries
+  let countryList = [];
   // Iterates through each country object in holding array
   holdingArray.forEach((country) => {
     // Extract name of the country which is also key to it's array i.e Australia
     // which is also a key e.g country.Australia
     const countryKeyName = Object.keys(country)[0];
 
+    countryList.push(countryKeyName);
     // Turn country's emission data into JSON
     let countryJSONString = JSON.stringify(country[countryKeyName]);
 
@@ -80,6 +83,12 @@ const writeToJsonFile = () => {
     });
   })
  
+  // Write List of countries into file
+  countryList = JSON.stringify(countryList);
+  fs.appendFile("./json/country-list.json", countryList, function (err) {
+    if (err) throw err;
+    console.log(`Data Written to country-list.json`);
+  });
   // Reset holdingArray to empty for next emmission type based dataset
   holdingArray = [];
 }

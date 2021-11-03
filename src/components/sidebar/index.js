@@ -94,11 +94,11 @@ export default function Sidebar() {
   return (
     <div className="sidebar">
       <div className="dropdowns">
-        <ParameterSelect option={option} setOption={setOption} />
+        {/* <ParameterSelect option={option} setOption={setOption} /> */}
         <CountrySelect emissionType={option} setDatapoints={setYearlyEmissionDataset} datapoints={yearlyEmissionDataset}/>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear}/>
       </div>
-      <Graph countryList={yearlyEmissionDataset} />
+      {/* <Graph countryList={yearlyEmissionDataset} /> */}
     </div>
   );
 }

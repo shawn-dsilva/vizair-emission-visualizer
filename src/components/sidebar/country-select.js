@@ -25,12 +25,28 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
     const [country, setCountry] = useState(['Australia']);
 
     useEffect(() => {
-        makeCountryList(emissionType);
-    }, [emissionType])
+        fetchCountryList();
+    }, [])
 
     // useEffect(() => {
     //     setDatapoints(countryList[0].value);
     // }, [countryList])
+
+    const fetchCountryList = () => {
+        fetch('./json/byCountry/country-list.json')
+        .then(response => response.json())
+        .then(data => setCountryList(data));
+    }
+
+
+    const fetchCountryData = (countryName) => {
+        fetch(`./json/byCountry/${countryName}.json`)
+        .then(response => response.json())
+        .then((newCountryData) => {
+            let newCountryObject = {[countryName]: newCountryData}
+            setDatapoints(currCountries => [...currCountries, newCountryObject])
+        });
+    }
 
     const getEmissionData = (type) => {
         return fetch(`./json/byCountry/${type}.json`)
@@ -54,9 +70,12 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
    
     const onSelect = (selection) => {
         // setDatapoints(rawEmissionDataset[selection.value])
-        setCountry(currCountries => [...currCountries, selection.label]);
-        setDatapoints(currDatapoints => [...currDatapoints, selection.value]);
-        console.log(selection.value);
+        // setCountry(currCountries => [...currCountries, selection.label]);
+        // setDatapoints(currDatapoints => [...currDatapoints, selection.value]);
+        // console.log(selection.value);
+
+        fetchCountryData(selection.value);
+        setCountry(selection.label)
     }
     
     // let options = makeCountryList();
