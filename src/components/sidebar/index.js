@@ -16,7 +16,7 @@ export default function Sidebar() {
       <div className="dropdowns">
         <CountrySelect emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints}/>
-        <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear}/>
+        <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>
       </div>
       <Graph countryList={datapoints} options={options} startYear={startYear} endYear={endYear}/>
     </div>

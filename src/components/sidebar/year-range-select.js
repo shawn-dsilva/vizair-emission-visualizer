@@ -3,7 +3,7 @@ import 'react-dropdown/style.css';
 import Dropdown from 'react-dropdown'
 
 
-export default function YearRangeSelect({setStartYear, setEndYear}) {
+export default function YearRangeSelect({setStartYear, setEndYear, startYear, endYear}) {
 
     const createYearRange = (type) => {
         let max;
@@ -28,12 +28,10 @@ export default function YearRangeSelect({setStartYear, setEndYear}) {
     const endYears = createYearRange("end");
 
     const onSelectStart = (selection) => {
-        // setDatapoints(rawEmissionDataset[selection.value])
         setStartYear(selection);
     }
 
     const onSelectEnd = (selection) => {
-        // setDatapoints(rawEmissionDataset[selection.value])
         setEndYear(selection);
     }
 
@@ -41,7 +39,7 @@ export default function YearRangeSelect({setStartYear, setEndYear}) {
         <div className='year-select'>
             <label>Choose A Time Period</label>
             <div className='year-select-flex'>
-                <Dropdown className='year-select-dropdown' options={startYears} onChange={onSelectStart}  placeholder="Select the Starting Year" />
+                <Dropdown className='year-select-dropdown' options={startYears}  onChange={onSelectStart}  placeholder="Select the Starting Year" />
                 <Dropdown className='year-select-dropdown' options={endYears}  onChange={onSelectEnd} placeholder="Select the Ending Year" />
         </div>
         </div>

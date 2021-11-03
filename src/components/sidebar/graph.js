@@ -21,45 +21,31 @@ export default function Graph({ countryList, options, startYear, endYear }) {
 
           optionsFilteredArray.push(passingItem[0]);
         });
-        // finalData.push(datum);
-
-
       }
       let completeFilteredArray = filterByTimeFrame(optionsFilteredArray);
-      const countryObjCopy = {[currKey]: completeFilteredArray};
+      const countryObjCopy = { [currKey]: completeFilteredArray };
       finalData.push(countryObjCopy);
-
     });
 
-    // countryList.forEach(country => {
-    //   for(const key in country) {
-    //     country[key] = filteredByOptions;
-    //   }
-    // })
-
-   
     setFilteredData(finalData);
   };
 
-  const filterByTimeFrame = (arrayToFilter) => {
-    let startYearIndex = 0;
-    let endYearIndex = 0;
+  const filterByTimeFrame = arrayToFilter => {
     let tempHoldingArray = [];
     let yearFilteredArray = [];
-    arrayToFilter.forEach( (emissionArray) => {
-      for(const key in emissionArray) {
-       tempHoldingArray = emissionArray[key].filter( (yearValueObject) => {
+    arrayToFilter.forEach(emissionArray => {
+      for (const key in emissionArray) {
+        tempHoldingArray = emissionArray[key].filter(yearValueObject => {
           let year = Object.entries(yearValueObject)[0][0];
-          return ((year >= startYear) && (year <= endYear));
-        })
+          return year >= startYear && year <= endYear;
+        });
 
-        // console.log(tempHoldingArray);
-        let emissionObjCopy = {[key]:tempHoldingArray};
+        let emissionObjCopy = { [key]: tempHoldingArray };
         yearFilteredArray.push(emissionObjCopy);
       }
-    })
+    });
     return yearFilteredArray;
-  }
+  };
 
   const generatePlottingData = () => {
 
@@ -106,14 +92,6 @@ export default function Graph({ countryList, options, startYear, endYear }) {
     ],
     []
   );
-
-  // const axes = React.useMemo(
-  //   () => [
-  //     { primary: true, type: 'linear', position: 'bottom' },
-  //     { type: 'linear', position: 'left'}
-  //   ],
-  //   []
-  // )
 
   const axes = [
     { primary: true, type: 'time', position: 'bottom' },
