@@ -21,7 +21,6 @@ export default function YearRangeSelect({setStartYear, setEndYear}) {
         for(let i = min; i<=max; i++) {
             years.push(i);
         }
-        console.log(years);
         return years
     }
 

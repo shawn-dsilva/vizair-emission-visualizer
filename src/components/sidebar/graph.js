@@ -1,37 +1,69 @@
-import React,{ useEffect, useMemo, useState } from 'react'
-import { Chart } from 'react-charts'
- 
-export default function Graph({countryList, options, startYear, endYear}) {
+import React, { useEffect, useMemo, useState } from 'react';
+import { Chart } from 'react-charts';
 
-  const [data,setData] = useState([]);
+export default function Graph({ countryList, options, startYear, endYear }) {
+  const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const filterByOptions = () => {
-    let dataPoints = [];
-    countryList.forEach((country) => {
-      for(const key in country) {
-        let datum = {
-          label: key,
-          data:[],
-          // color:'#ffff4d'
-        }
-        console.log(country[key]);
+    let finalData = [];
+    let optionsFilteredArray = [];
+    let currKey;
+    countryList.forEach(country => {
+      for (const key in country) {
+        currKey = key;
         let emissionArray = country[key];
-        let filteredByOptions = [];
-        options.forEach((option) => {
-          let passingItem = emissionArray.filter((emissionType) => {
-              return Object.keys(emissionType)[0] === option;
+        options.forEach(option => {
+          let passingItem = emissionArray.filter(emissionType => {
+            return Object.keys(emissionType)[0] === option;
           });
 
-          filteredByOptions.push(passingItem[0]);
-        })
-      
-        console.log(filteredByOptions);
-          // dataPoints.push(datum);
+          optionsFilteredArray.push(passingItem[0]);
+        });
+        // finalData.push(datum);
+
+
       }
-  })
+      let completeFilteredArray = filterByTimeFrame(optionsFilteredArray);
+      const countryObjCopy = {[currKey]: completeFilteredArray};
+      finalData.push(countryObjCopy);
+
+    });
+
+    // countryList.forEach(country => {
+    //   for(const key in country) {
+    //     country[key] = filteredByOptions;
+    //   }
+    // })
+
+   
+    setFilteredData(finalData);
+  };
+
+  const filterByTimeFrame = (arrayToFilter) => {
+    let startYearIndex = 0;
+    let endYearIndex = 0;
+    let tempHoldingArray = [];
+    let yearFilteredArray = [];
+    arrayToFilter.forEach( (emissionArray) => {
+      for(const key in emissionArray) {
+       tempHoldingArray = emissionArray[key].filter( (yearValueObject) => {
+          let year = Object.entries(yearValueObject)[0][0];
+          return ((year >= startYear) && (year <= endYear));
+        })
+
+        // console.log(tempHoldingArray);
+        let emissionObjCopy = {[key]:tempHoldingArray};
+        yearFilteredArray.push(emissionObjCopy);
+      }
+    })
+    return yearFilteredArray;
   }
 
+  const generatePlottingData = () => {
+
+  }
   // const generateData = (countryList) => {
   //   let dataPoints = [];
   //   console.log(typeof(countryList));
@@ -42,7 +74,7 @@ export default function Graph({countryList, options, startYear, endYear}) {
   //         data:[],
   //         // color:'#ffff4d'
   //       }
-  
+
   //       country[key].forEach((item) => {
   //         let yearValArray = Object.entries(item)[0];
   //         let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
@@ -55,20 +87,26 @@ export default function Graph({countryList, options, startYear, endYear}) {
 
   // }
 
-  useEffect(()=> {
+  useEffect(() => {
     filterByOptions();
-  },[countryList, options]);
+  }, [countryList, options, startYear, endYear]);
 
   const dataTemp = React.useMemo(
     () => [
       {
         label: 'Series 1',
-        data: [[0, 1], [1, 2], [2, 4], [3, 2], [4, 7]]
+        data: [
+          [0, 1],
+          [1, 2],
+          [2, 4],
+          [3, 2],
+          [4, 7],
+        ],
       },
     ],
     []
-  )
- 
+  );
+
   // const axes = React.useMemo(
   //   () => [
   //     { primary: true, type: 'linear', position: 'bottom' },
@@ -77,20 +115,20 @@ export default function Graph({countryList, options, startYear, endYear}) {
   //   []
   // )
 
-  const axes =  [
-    { primary: true, type: 'time', position: 'bottom',  },
-    { type: 'linear', position: 'left', format: tick=> `${tick} ktCO2e`}
-  ]
- 
+  const axes = [
+    { primary: true, type: 'time', position: 'bottom' },
+    { type: 'linear', position: 'left', format: tick => `${tick} ktCO2e` },
+  ];
+
   return (
     <div
       style={{
-        width:'800px',
+        width: '800px',
         height: '400px',
       }}
     >
       <p>Example Graph</p>
-      <Chart data={dataTemp} axes={axes} className="chart" tooltip/>
+      <Chart data={dataTemp} axes={axes} className="chart" tooltip />
     </div>
-  )
+  );
 }
