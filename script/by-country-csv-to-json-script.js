@@ -2,6 +2,21 @@ const fs = require('fs')
 let holdingArray = []; // temporary array to hold country name and year:value pairs for an emission type
 //let current_index = 1; // global index, that marks the current position in the array of file date
 
+const EMISSION_TYPES = {
+        
+  'carbon_dioxide_co2_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent':'CO2/Carbon Dioxide' , 
+  'greenhouse_gas_ghgs_emissions_including_indirect_co2_without_lulucf_in_kilotonne_co2_equivalent': 'GHG1/Greenhouse Gas Type 1', 
+  'greenhouse_gas_ghgs_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent' :'GHG2/Green House Gas Type 2',
+  'hydrofluorocarbons_hfcs_emissions_in_kilotonne_co2_equivalent':'HFC/Hydrofluorocarbons', 
+  'methane_ch4_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent': 'CH4/Methane', 
+  'nitrogen_trifluoride_nf3_emissions_in_kilotonne_co2_equivalent': 'NF3/Nitrogen Triflouride', 
+  'nitrous_oxide_n2o_emissions_without_land_use_land_use_change_and_forestry_lulucf_in_kilotonne_co2_equivalent':'N2O/Nitrous Oxide', 
+  'perfluorocarbons_pfcs_emissions_in_kilotonne_co2_equivalent':'PFC/Perflourocarbons', 
+  'sulphur_hexafluoride_sf6_emissions_in_kilotonne_co2_equivalent':'SF6/Sulphur Hexafluoride', 
+  'unspecified_mix_of_hydrofluorocarbons_hfcs_and_perfluorocarbons_pfcs_emissions_in_kilotonne_co2_equivalent':'MIX/Unspecified HFC & PFC Mix'
+      
+  }
+
 
 const makeJSONArray = (item) => {
 
@@ -9,7 +24,7 @@ const makeJSONArray = (item) => {
     let countryName = commaSeperatedArray[0];
     let year = commaSeperatedArray[1];
     let value = commaSeperatedArray[2];
-    let emission = commaSeperatedArray[3];
+    let emission = EMISSION_TYPES[commaSeperatedArray[3]];
 
     
     // variable names as keys don't work directly

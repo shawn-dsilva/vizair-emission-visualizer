@@ -33,7 +33,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
     // }, [countryList])
 
     const getEmissionData = (type) => {
-        return fetch(`./json/${type}.json`)
+        return fetch(`./json/byCountry/${type}.json`)
             .then(response => response.json());
     };
 
