@@ -137,7 +137,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
       height: '400px',
     }}
   >
-    <p>Example Graph</p>
+    <h1>Emissions by Country</h1>
     <Chart data={plottingData} axes={axes} className="chart" tooltip />
   </div>
     }
