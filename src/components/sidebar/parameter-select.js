@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import 'react-dropdown/style.css';
 
-export default function ParameterSelect({options, setOptions, datapoints}) {
+export default function ParameterSelect({options, setOptions, datapoints, isLoading, setIsLoading}) {
     const [emissionTypes, setEmissionTypes] = useState([]);
 
     useEffect(() => {
@@ -41,8 +41,10 @@ export default function ParameterSelect({options, setOptions, datapoints}) {
         // i.e deselect the option, else add the option ( checked )
         if(options.includes(selection)) {
             setOptions(options.filter(option => option !== selection));
+            setIsLoading(true);
         } else {
             setOptions(currOptions => [...currOptions, selection]);
+            setIsLoading(true);
         }
     }
 

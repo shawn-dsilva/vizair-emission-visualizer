@@ -2,15 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Chart } from 'react-charts';
 import LoadingAnimation from '../utils/LoadingAnimation';
 
-export default function Graph({ countryList, options, startYear, endYear }) {
+export default function Graph({ countryList, options, startYear, endYear, isLoading, setIsLoading }) {
   const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
   // const [filteredData, setFilteredData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const filterByOptions = () => {
-    setIsLoading(true)
-
     let finalData = [];
     let optionsFilteredArray = [];
     let currKey;
@@ -108,7 +105,7 @@ export default function Graph({ countryList, options, startYear, endYear }) {
 
   useEffect(() => {
     filterByOptions();
-  }, [options, startYear, endYear,]);
+  }, [options, startYear, endYear]);
 
   const dataTemp = React.useMemo(
     () => [
