@@ -4,7 +4,7 @@ import { Chart } from 'react-charts';
 export default function Graph({ countryList, options, startYear, endYear }) {
   const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  // const [filteredData, setFilteredData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const filterByOptions = () => {
@@ -29,7 +29,7 @@ export default function Graph({ countryList, options, startYear, endYear }) {
       finalData.push(countryObjCopy);
     });
 
-    setFilteredData(finalData);
+    generatePlottingData(finalData);
   };
 
   const filterByTimeFrame = arrayToFilter => {
@@ -72,7 +72,7 @@ export default function Graph({ countryList, options, startYear, endYear }) {
 
   // }
 
-  const generatePlottingData = () => {
+  const generatePlottingData = (filteredData) => {
   let dataPoints = [];
     filteredData.forEach((country)=> {
       for(const key in country) {
@@ -99,13 +99,13 @@ export default function Graph({ countryList, options, startYear, endYear }) {
       }
       console.log(dataPoints)
       setPlottingData(dataPoints);
+      setIsLoading(false);
+
     })
   }
 
   useEffect(() => {
     filterByOptions();
-    generatePlottingData();
-    setIsLoading(false);
   }, [options, startYear, endYear,]);
 
   const dataTemp = React.useMemo(
