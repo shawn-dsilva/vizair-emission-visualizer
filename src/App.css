@@ -115,7 +115,7 @@
   display: flex;
   border:1px solid #424242;
 }
-.country-select span, .parameter-select span {
+.country-select p, .parameter-select p, .year-select p {
   color:grey;
   display: block;
   margin: 0.5rem 0;
@@ -130,4 +130,9 @@
 .sidebar h1 {
   margin-top:1.5rem;
   margin-bottom:0;
+}
+
+.graph-container h1 {
+  margin-top:0;
+  margin-bottom:1rem;
 }

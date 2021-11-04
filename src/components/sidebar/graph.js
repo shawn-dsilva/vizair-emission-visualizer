@@ -111,7 +111,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   ];
 
   return (
-    <div >
+    <div className='graph-container' >
     <h1>Emissions by Country</h1>
     {isFirstLoad === true ? <div className="center-container"><h1 style={{margin:'auto', color:'grey'}}>Select A Country And Parameters to Get Started</h1></div>: 
         (isLoading === true ? <LoadingAnimation/> :

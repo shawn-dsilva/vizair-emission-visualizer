@@ -55,7 +55,7 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
             <div className='checkbox-container'>
                 {makeCheckBoxList()}
             </div>
-            <span>Your Selection : {options + " , "}</span>
+            <p>Your Selection : {options + " , "}</p>
         </div>
     )
 }

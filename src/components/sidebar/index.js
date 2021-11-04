@@ -8,8 +8,8 @@ export default function Sidebar() {
   const [options, setOptions] = useState([]);
   const [country, setCountry] = useState();
   const [datapoints, setDatapoints] = useState([])
-  const [startYear, setStartYear] = useState(1995);
-  const [endYear, setEndYear] = useState(2005);
+  const [startYear, setStartYear] = useState(1990);
+  const [endYear, setEndYear] = useState(2014);
   const [isLoading, setIsLoading] = useState(false);
 
   return (

@@ -40,7 +40,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints})
         <div className="country-select">
             <label>Select From Available Countries</label>
             <Dropdown options={countryList}  onChange={onSelect} placeholder="Select a Country" />
-            <span>You have selected  : {country+" , "} </span>
+            <p>You have selected  : {country+" , "} </p>
 
         </div>
     )
