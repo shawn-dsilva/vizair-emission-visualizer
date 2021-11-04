@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Chart } from 'react-charts';
 import LoadingAnimation from '../utils/LoadingAnimation';
 
-export default function Graph({ countryList, options, startYear, endYear, isLoading, setIsLoading }) {
+export default function Graph({ countryList, options, startYear, endYear, isLoading, setIsLoading, country }) {
   const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -115,6 +115,8 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
     <h1>Emissions by Country</h1>
     {isFirstLoad === true ? <div className="center-container"><h1 style={{margin:'auto', color:'grey'}}>Select A Country And Parameters to Get Started</h1></div>: 
         (isLoading === true ? <LoadingAnimation/> :
+          <>
+          <p>Showing results for {country} with emission types {options} from {startYear}-{endYear}</p>
           <div style={{
             height:'500px',
             width: '800px',
@@ -122,6 +124,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
           }}>
           <Chart data={plottingData} axes={axes} className="chart" tooltip />
         </div>
+        </>
   )
     }
 

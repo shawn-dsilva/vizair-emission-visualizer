@@ -3,10 +3,9 @@ import 'react-dropdown/style.css';
 import Dropdown from 'react-dropdown'
 
 
-export default function CountrySelect({emissionType, setDatapoints, datapoints}) {
+export default function CountrySelect({emissionType, setDatapoints, datapoints, country, setCountry}) {
     //Write logic to render all countries as dropdown options
     const [countryList, setCountryList] = useState([]);
-    const [country, setCountry] = useState([]);
 
     useEffect(() => {
         fetchCountryList();

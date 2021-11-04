@@ -16,11 +16,11 @@ export default function Sidebar() {
     <div className="sidebar">
       <h1>Visualization Controls</h1>
       <div className="dropdowns">
-        <CountrySelect emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
+        <CountrySelect country={country} setCountry={setCountry} emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints} isLoading={isLoading} setIsLoading={setIsLoading}/>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>
       </div>
-      <Graph countryList={datapoints} options={options} startYear={startYear} endYear={endYear} isLoading={isLoading} setIsLoading={setIsLoading}/>
+      <Graph countryList={datapoints} options={options} startYear={startYear} endYear={endYear} isLoading={isLoading} setIsLoading={setIsLoading} country={country}  />
     </div>
   );
 }
