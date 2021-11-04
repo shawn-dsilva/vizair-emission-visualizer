@@ -14,8 +14,8 @@ export default function Sidebar() {
 
   return (
     <div className="sidebar">
+      <h1>Visualization Controls</h1>
       <div className="dropdowns">
-        <h1>Visualization Controls</h1>
         <CountrySelect emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints} isLoading={isLoading} setIsLoading={setIsLoading}/>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>

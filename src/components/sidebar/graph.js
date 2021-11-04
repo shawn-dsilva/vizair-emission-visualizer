@@ -62,7 +62,9 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
             data:[],
             // color:'#ffff4d'
           }
-          datum.label =  `${Object.keys(emissionItem)[0]} Emissions by ${Object.keys(country)[0]}`;
+          let emissionArray = Object.keys(emissionItem)[0].toString().split('/');
+          let emissionPrettyPrint = `${emissionArray[0]} ( ${emissionArray[1]} )`;
+          datum.label =  `${emissionPrettyPrint} Emissions by ${Object.keys(country)[0]}`;
           for(const yearValKey in emissionItem) {
             emissionItem[yearValKey].forEach((yearValueItem) => {
               let yearValArray = Object.entries(yearValueItem)[0];
