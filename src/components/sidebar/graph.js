@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Chart } from 'react-charts';
+import LoadingAnimation from '../utils/LoadingAnimation';
 
 export default function Graph({ countryList, options, startYear, endYear }) {
   const [data, setData] = useState([]);
@@ -8,10 +9,11 @@ export default function Graph({ countryList, options, startYear, endYear }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const filterByOptions = () => {
+    setIsLoading(true)
+
     let finalData = [];
     let optionsFilteredArray = [];
     let currKey;
-    setIsLoading(true)
     countryList.forEach(country => {
       for (const key in country) {
         currKey = key;
@@ -131,7 +133,7 @@ export default function Graph({ countryList, options, startYear, endYear }) {
 
   return (
     <>
-    {isLoading === true ? "Building Chart" :
+    {isLoading === true ? <LoadingAnimation/> :
     <div
     style={{
       width: '800px',
