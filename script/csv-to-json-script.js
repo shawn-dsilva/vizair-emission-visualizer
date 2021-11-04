@@ -19,7 +19,7 @@ let current_index = 1; // global index, that marks the current position in the a
 
 const makeJSONArray = (item) => {
 
-    commaSeperatedArray = item.split(",");
+    let commaSeperatedArray = item.split(",");
     let countryName = commaSeperatedArray[0];
     let year = commaSeperatedArray[1];
     let value = commaSeperatedArray[2];
