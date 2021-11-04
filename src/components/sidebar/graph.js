@@ -5,6 +5,7 @@ import LoadingAnimation from '../utils/LoadingAnimation';
 export default function Graph({ countryList, options, startYear, endYear, isLoading, setIsLoading }) {
   const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   // const [filteredData, setFilteredData] = useState([]);
 
   const filterByOptions = () => {
@@ -98,6 +99,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
       }
       console.log(dataPoints)
       setPlottingData(dataPoints);
+      setIsFirstLoad(false);
       setIsLoading(false);
 
     })
@@ -129,19 +131,21 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   ];
 
   return (
-    <>
-    {isLoading === true ? <LoadingAnimation/> :
-    <div
-    style={{
-      width: '800px',
-      height: '400px',
-    }}
-  >
+    <div >
     <h1>Emissions by Country</h1>
-    <Chart data={plottingData} axes={axes} className="chart" tooltip />
-  </div>
+    {isFirstLoad === true ? <div className="center-container"><h1 style={{margin:'auto', color:'grey'}}>Select A Country And Parameters to Get Started</h1></div>: 
+        (isLoading === true ? <LoadingAnimation/> :
+          <div style={{
+            height:'500px',
+            width: '800px',
+            marginBottom:'2rem'
+          }}>
+          <Chart data={plottingData} axes={axes} className="chart" tooltip />
+        </div>
+  )
     }
+
     
-    </>
+    </div>
   );
 }

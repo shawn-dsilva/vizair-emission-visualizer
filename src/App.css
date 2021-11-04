@@ -8,7 +8,6 @@
   width: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
 }
 
 .map {
@@ -24,12 +23,6 @@
   display: flex;
   flex-direction: column;
   margin: 1rem;
-}
-
-
-
-.parameter-select{
-  margin: 1rem 0;
 }
 
 .parameter-select label, .country-select label, .year-select label {
@@ -52,9 +45,6 @@
   width: 20px!important;
 }
 
-.year-select{
-  margin: 2rem 0;
-}
 
 .year-select-flex {
   display: flex;
@@ -120,8 +110,19 @@
 }
 
 .center-container {
-  height: 400px;
+  height: 500px;
   width: 800px;
   display: flex;
   border:1px solid #424242;
+}
+.country-select span, .parameter-select span {
+  color:grey;
+  display: block;
+  margin: 0.5rem 0;
+}
+
+.chart-container {
+  height: 500px;
+  width: 800px;
+  margin: 1rem;
 }

@@ -10,11 +10,12 @@ export default function Sidebar() {
   const [datapoints, setDatapoints] = useState([])
   const [startYear, setStartYear] = useState(1995);
   const [endYear, setEndYear] = useState(2005);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="sidebar">
       <div className="dropdowns">
+        <h1>Visualization Controls</h1>
         <CountrySelect emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints} isLoading={isLoading} setIsLoading={setIsLoading}/>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>
