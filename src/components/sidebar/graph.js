@@ -5,11 +5,13 @@ export default function Graph({ countryList, options, startYear, endYear }) {
   const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const filterByOptions = () => {
     let finalData = [];
     let optionsFilteredArray = [];
     let currKey;
+    setIsLoading(true)
     countryList.forEach(country => {
       for (const key in country) {
         currKey = key;
@@ -47,9 +49,6 @@ export default function Graph({ countryList, options, startYear, endYear }) {
     return yearFilteredArray;
   };
 
-  const generatePlottingData = () => {
-
-  }
   // const generateData = (countryList) => {
   //   let dataPoints = [];
   //   console.log(typeof(countryList));
@@ -73,9 +72,41 @@ export default function Graph({ countryList, options, startYear, endYear }) {
 
   // }
 
+  const generatePlottingData = () => {
+  let dataPoints = [];
+    filteredData.forEach((country)=> {
+      for(const key in country) {
+
+        let emissionArray = country[key];
+        emissionArray.forEach((emissionItem) => {
+          let datum = {
+            label:"",
+            data:[],
+            // color:'#ffff4d'
+          }
+          datum.label =  Object.keys(emissionItem)[0];
+          for(const yearValKey in emissionItem) {
+            emissionItem[yearValKey].forEach((yearValueItem) => {
+              let yearValArray = Object.entries(yearValueItem)[0];
+              let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
+              datum.data.push(yearValObject);
+            })
+          }       
+          console.log(datum);   
+          dataPoints.push(datum);
+
+        });
+      }
+      console.log(dataPoints)
+      setPlottingData(dataPoints);
+    })
+  }
+
   useEffect(() => {
     filterByOptions();
-  }, [countryList, options, startYear, endYear]);
+    generatePlottingData();
+    setIsLoading(false);
+  }, [options, startYear, endYear,]);
 
   const dataTemp = React.useMemo(
     () => [
@@ -99,14 +130,19 @@ export default function Graph({ countryList, options, startYear, endYear }) {
   ];
 
   return (
+    <>
+    {isLoading === true ? "Building Chart" :
     <div
-      style={{
-        width: '800px',
-        height: '400px',
-      }}
-    >
-      <p>Example Graph</p>
-      <Chart data={dataTemp} axes={axes} className="chart" tooltip />
-    </div>
+    style={{
+      width: '800px',
+      height: '400px',
+    }}
+  >
+    <p>Example Graph</p>
+    <Chart data={plottingData} axes={axes} className="chart" tooltip />
+  </div>
+    }
+    
+    </>
   );
 }
