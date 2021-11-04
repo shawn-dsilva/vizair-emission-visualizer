@@ -49,28 +49,6 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
     return yearFilteredArray;
   };
 
-  // const generateData = (countryList) => {
-  //   let dataPoints = [];
-  //   console.log(typeof(countryList));
-  //   countryList.forEach((country)=> {
-  //     for(const key in country) {
-  //       let datum = {
-  //         label: key,
-  //         data:[],
-  //         // color:'#ffff4d'
-  //       }
-
-  //       country[key].forEach((item) => {
-  //         let yearValArray = Object.entries(item)[0];
-  //         let yearValObject = { primary: new Date(yearValArray[0]).setHours(0, 0, 0, 0), secondary: yearValArray[1]};
-  //         datum.data.push(yearValObject);
-  //       });
-  //         dataPoints.push(datum);
-  //     }
-  //     setData(dataPoints);
-  //   })
-
-  // }
 
   const generatePlottingData = (filteredData) => {
   let dataPoints = [];
@@ -80,11 +58,11 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
         let emissionArray = country[key];
         emissionArray.forEach((emissionItem) => {
           let datum = {
-            label:"",
+            label:'',
             data:[],
             // color:'#ffff4d'
           }
-          datum.label =  Object.keys(emissionItem)[0];
+          datum.label =  `${Object.keys(emissionItem)[0]} Emissions by ${Object.keys(country)[0]}`;
           for(const yearValKey in emissionItem) {
             emissionItem[yearValKey].forEach((yearValueItem) => {
               let yearValArray = Object.entries(yearValueItem)[0];
