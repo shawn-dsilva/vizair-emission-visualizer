@@ -9,30 +9,32 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   // const [filteredData, setFilteredData] = useState([]);
 
   const colors = [
-   ['#ff6384', '#ff7390', '#ff91a9'],
-   ['#36a2eb', '#61b5ed', '#86c5f0'],
-   ['#ffce56','#ffd97a', '#ffe5a6' ],
+   ['#ff0036', '#ff7390', '#ff91a9'],
+   ['#0098ff', '#4fb8ff', '#86c5f0'],
+   ['#ffc400','#ffce56', '#ffe5a6' ],
   ]
 
   const filterByOptions = () => {
     let finalData = [];
-    let optionsFilteredArray = [];
     let currKey;
     countryList.forEach(country => {
       for (const key in country) {
         currKey = key;
         let emissionArray = country[key];
+        let optionsFilteredArray = [];
         options.forEach(option => {
           let passingItem = emissionArray.filter(emissionType => {
             return Object.keys(emissionType)[0] === option;
           });
 
           optionsFilteredArray.push(passingItem[0]);
+          console.log(optionsFilteredArray);
         });
+        let completeFilteredArray = filterByTimeFrame(optionsFilteredArray);
+        const countryObjCopy = { [currKey]: completeFilteredArray };
+        finalData.push(countryObjCopy);
       }
-      let completeFilteredArray = filterByTimeFrame(optionsFilteredArray);
-      const countryObjCopy = { [currKey]: completeFilteredArray };
-      finalData.push(countryObjCopy);
+
     });
 
     generatePlottingData(finalData);
@@ -65,6 +67,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
       for(const key in country) {
 
         let emissionArray = country[key];
+
         emissionArray.forEach((emissionItem, emisssionIndex) => {
           let datum = {
             label:'',
@@ -75,7 +78,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
           let emissionPrettyPrint = `${emissionArray[0]} ( ${emissionArray[1]} )`;
           datum.label =  `${Object.keys(country)[0]}'s ${emissionPrettyPrint} Emissions `;
           if(multicolor) {
-            datum.color = colors[countryIndex][0];
+            datum.color = colors[countryIndex][emisssionIndex];
           }
           for(const yearValKey in emissionItem) {
             emissionItem[yearValKey].forEach((yearValueItem) => {
@@ -84,12 +87,10 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
               datum.data.push(yearValObject);
             })
           }       
-          console.log(datum);   
           dataPoints.push(datum);
 
         });
       }
-      console.log(dataPoints)
       setPlottingData(dataPoints);
       setIsFirstLoad(false);
       setIsLoading(false);
@@ -99,7 +100,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
 
   useEffect(() => {
     filterByOptions();
-  }, [options, startYear, endYear]);
+  }, [countryList, options, startYear, endYear]);
 
   const dataTemp = React.useMemo(
     () => [
@@ -128,7 +129,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
     {isFirstLoad === true ? <div className="center-container"><h1 style={{margin:'auto', color:'grey'}}>Select A Country And Parameters to Get Started</h1></div>: 
         (isLoading === true ? <LoadingAnimation/> :
           <>
-          <p>Showing results for {country} with emission types {options} from {startYear}-{endYear}</p>
+          <p>Showing results for {country+" , "} with emission types {options+" , "} from {startYear}-{endYear}</p>
           <div style={{
             height:'500px',
             width: '800px',
