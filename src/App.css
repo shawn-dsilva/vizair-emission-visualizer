@@ -136,3 +136,10 @@
   margin-top:0;
   margin-bottom:1rem;
 }
+
+.error-message {
+  background-color: rgba(252, 116, 116,0.2);
+  color:rgb(212, 69, 69);
+  border-radius: 10px;
+  padding: 1rem;
+}

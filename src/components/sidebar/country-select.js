@@ -1,11 +1,13 @@
 import React, {useState,useEffect} from 'react'
 import 'react-dropdown/style.css';
-import Dropdown from 'react-dropdown'
+import Dropdown from 'react-dropdown';
+import TimedError from './timed-error';
 
 
-export default function CountrySelect({emissionType, setDatapoints, datapoints, country, setCountry}) {
+export default function CountrySelect({emissionType, setDatapoints, datapoints, countries, setCountries}) {
     //Write logic to render all countries as dropdown options
     const [countryList, setCountryList] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         fetchCountryList();
@@ -29,8 +31,13 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
     }
   
     const onSelect = (selection) => {
-        fetchCountryData(selection.value);
-        setCountry(selection.label)
+        if(countries.length !== 3) {
+            fetchCountryData(selection.value);
+            setCountries([...countries, selection.label])
+        } else {
+            setErrorMessage("Maximum of 3 countries are allowed");
+        }
+        
     }
     
     // let options = makeCountryList();
@@ -39,7 +46,8 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
         <div className="country-select">
             <label>Select From Available Countries</label>
             <Dropdown options={countryList}  onChange={onSelect} placeholder="Select a Country" />
-            <p>You have selected  : {country+" , "} </p>
+            <p>You have selected  : {countries+" , "} </p>
+            <TimedError errorMessage={errorMessage}/>
 
         </div>
     )

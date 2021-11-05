@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import 'react-dropdown/style.css';
+import TimedError from './timed-error';
 
 export default function ParameterSelect({options, setOptions, datapoints, isLoading, setIsLoading}) {
     const [emissionTypes, setEmissionTypes] = useState([]);
+    const [isCheckedObject, setIsCheckedObject] = useState({});
+    const [errorMessage, setErrorMessage] = useState("");
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         makeParamsList()
@@ -28,7 +32,7 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
            let emissionPrettyPrint = `${emissionArray[1]} (${emissionArray[0]})`;
             return (
             <div className="checkbox-item" key={index}>
-              <input type="checkbox"  onChange={ () => onChange(emission) }/>
+              <input type="checkbox" checked={isCheckedObject[emission]} onChange={ () => onChange(emission) }/>
               <label>{ emissionPrettyPrint }</label>
             </div>
             )
@@ -38,14 +42,22 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
     }
 
     const onChange = (selection) => {
-
+            let countries = Object.keys(datapoints);
         // If selection is found in options, remove it (unchecked)
         // i.e deselect the option, else add the option ( checked )
         if(options.includes(selection)) {
             setOptions(options.filter(option => option !== selection));
+            setIsCheckedObject({...isCheckedObject, [selection]: false})
             setIsLoading(true);
+        } else if(countries.length >= 2 && options.length >= 3) {
+            setErrorMessage("You can only chose 3 parameters if you have selected more than one country");
+            setIsError(true);
+            setIsCheckedObject({...isCheckedObject, [selection]: false})
+            setIsError(false);
+
         } else {
             setOptions(currOptions => [...currOptions, selection]);
+            setIsCheckedObject({...isCheckedObject, [selection]: true})
             setIsLoading(true);
         }
     }
@@ -58,6 +70,8 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
                 {makeCheckBoxList()}
             </div>
             <p>Your Selection : {options + " , "}</p>
+
+            { setIsError && <TimedError errorMessage={errorMessage}/>}
         </div>
     )
 }

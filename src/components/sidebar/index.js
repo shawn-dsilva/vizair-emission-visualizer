@@ -6,7 +6,7 @@ import YearRangeSelect from './year-range-select';
 
 export default function Sidebar() {
   const [options, setOptions] = useState([]);
-  const [country, setCountry] = useState();
+  const [country, setCountry] = useState([]);
   const [datapoints, setDatapoints] = useState([])
   const [startYear, setStartYear] = useState(1990);
   const [endYear, setEndYear] = useState(2014);
@@ -16,7 +16,7 @@ export default function Sidebar() {
     <div className="sidebar">
       <h1>Visualization Controls</h1>
       <div className="dropdowns">
-        <CountrySelect country={country} setCountry={setCountry} emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
+        <CountrySelect countries={country} setCountries={setCountry} emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints} isLoading={isLoading} setIsLoading={setIsLoading}/>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>
       </div>
