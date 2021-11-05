@@ -8,6 +8,12 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   // const [filteredData, setFilteredData] = useState([]);
 
+  const colors = [
+   ['#ff6384', '#ff7390', '#ff91a9'],
+   ['#36a2eb', '#61b5ed', '#86c5f0'],
+   ['#ffce56','#ffd97a', '#ffe5a6' ],
+  ]
+
   const filterByOptions = () => {
     let finalData = [];
     let optionsFilteredArray = [];
@@ -52,11 +58,14 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
 
   const generatePlottingData = (filteredData) => {
   let dataPoints = [];
-    filteredData.forEach((country)=> {
+  let multicolor;
+
+  filteredData.length > 1 ? multicolor = true: multicolor = false;
+    filteredData.forEach((country, countryIndex)=> {
       for(const key in country) {
 
         let emissionArray = country[key];
-        emissionArray.forEach((emissionItem) => {
+        emissionArray.forEach((emissionItem, emisssionIndex) => {
           let datum = {
             label:'',
             data:[],
@@ -64,7 +73,10 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
           }
           let emissionArray = Object.keys(emissionItem)[0].toString().split('/');
           let emissionPrettyPrint = `${emissionArray[0]} ( ${emissionArray[1]} )`;
-          datum.label =  `${emissionPrettyPrint} Emissions by ${Object.keys(country)[0]}`;
+          datum.label =  `${Object.keys(country)[0]}'s ${emissionPrettyPrint} Emissions `;
+          if(multicolor) {
+            datum.color = colors[countryIndex][0];
+          }
           for(const yearValKey in emissionItem) {
             emissionItem[yearValKey].forEach((yearValueItem) => {
               let yearValArray = Object.entries(yearValueItem)[0];
