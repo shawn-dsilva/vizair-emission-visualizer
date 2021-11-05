@@ -13,6 +13,8 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
         datapoints.forEach((country) => {
             country = Object.entries(country)[0][1];
             country.forEach( (emissionType) => {
+                // Only adds EmissionType to List if not already present
+                if(!emissionTypes.includes(Object.keys(emissionType)[0]) )
                 setEmissionTypes(currEmissionTypes => [...currEmissionTypes, Object.keys(emissionType)[0]]);
             })
         })
