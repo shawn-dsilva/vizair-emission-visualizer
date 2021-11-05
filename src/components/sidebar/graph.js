@@ -98,6 +98,16 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
     })
   }
 
+  const prettyPrint = (textArray) => {
+    let prettyPrint = textArray.map( (string) => {
+      string = string.split('/');
+      string = `${string[0]} ( ${string[1]} )`;
+      return string;
+    })
+
+    return prettyPrint.join(' , ');
+  }
+
   useEffect(() => {
     filterByOptions();
   }, [countryList, options, startYear, endYear]);
@@ -126,10 +136,10 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   return (
     <div className='graph-container' >
     <h1>Emissions by Country</h1>
-    {isFirstLoad === true ? <div className="center-container"><h1 style={{margin:'auto', color:'grey'}}>Select A Country And Parameters to Get Started</h1></div>: 
+    {isFirstLoad === true || options.length === 0 ? <div className="center-container"><h1 style={{margin:'auto', color:'grey'}}>Select A Country And Parameters to Get Started</h1></div>: 
         (isLoading === true ? <LoadingAnimation/> :
           <>
-          <p>Showing results for {country+" , "} with emission types {options+" , "} from {startYear}-{endYear}</p>
+          <p>Showing results for {country.join(" , ")} with emission types {prettyPrint(options)} from {startYear} to {endYear}</p>
           <div style={{
             height:'500px',
             width: '800px',
