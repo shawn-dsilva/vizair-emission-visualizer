@@ -101,7 +101,7 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   const prettyPrint = (textArray) => {
     let prettyPrint = textArray.map( (string) => {
       string = string.split('/');
-      string = `${string[0]} ( ${string[1]} )`;
+      string = `${string[0]} (${string[1]})`;
       return string;
     })
 
