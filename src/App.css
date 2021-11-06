@@ -154,5 +154,5 @@
   margin:auto
 }
 
-/* path {fill: lightgray; stroke: white;} */
+path { stroke: white;}
 path:hover {fill: gray;}

@@ -4,7 +4,7 @@ function SelectParameters({year, setYear, emissionType, setEmissionType, setEmis
 
     useEffect(() => {
         const fetchEmissionData = () => {
-            let filteredData = [];
+            let filteredData = {};
 
             fetch(`./json/byEmission/${emissionType}.json`)
             .then(response => response.json())
@@ -18,12 +18,12 @@ function SelectParameters({year, setYear, emissionType, setEmissionType, setEmis
                         })[0]
 
                         if(filteredDatum !== undefined) {
-                            let countryObj = {[key]:filteredDatum[year]};
-                            filteredData.push(countryObj);
+                            filteredData[key] = filteredDatum[year];
                         }
 
                     }
                 })
+                console.log(filteredData);
                 setEmissionData(filteredData);
             });
         }
