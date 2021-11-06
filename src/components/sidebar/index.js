@@ -5,7 +5,7 @@ import ParameterSelect from './parameter-select';
 import YearRangeSelect from './year-range-select';
 
 export default function Sidebar() {
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(["CO2/Carbon Dioxide","GHG1/Greenhouse Gas Type 1","HFC/Hydrofluorocarbons"]);
   const [country, setCountry] = useState([]);
   const [datapoints, setDatapoints] = useState([])
   const [startYear, setStartYear] = useState(1990);

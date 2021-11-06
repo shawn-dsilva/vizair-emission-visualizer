@@ -28,7 +28,6 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
           });
 
           optionsFilteredArray.push(passingItem[0]);
-          console.log(optionsFilteredArray);
         });
         let completeFilteredArray = filterByTimeFrame(optionsFilteredArray);
         const countryObjCopy = { [currKey]: completeFilteredArray };

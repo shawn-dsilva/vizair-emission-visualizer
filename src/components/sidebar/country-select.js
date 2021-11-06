@@ -11,6 +11,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
 
     useEffect(() => {
         fetchCountryList();
+        fetchCountryData('Austria');
     }, [])
 
 
