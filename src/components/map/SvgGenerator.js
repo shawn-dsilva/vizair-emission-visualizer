@@ -24,10 +24,10 @@ function SvgGenerator({emissionData, isLoading, setIsLoading}) {
       for(const key in emissionData) {
           let val = emissionData[key];
           switch (true) {
-            case val > 0 && val < 250000:
+            case val > 0 && val < 300000:
               colorized[key] = {'value':val, 'color' : colors[0]}
               break;
-            case val > 250000 && val < 300000:
+            case val > 300000 && val < 350000:
               colorized[key] = {'value':val, 'color' : colors[1]}
               break;
             case val > 350000 && val < 400000:
@@ -39,10 +39,10 @@ function SvgGenerator({emissionData, isLoading, setIsLoading}) {
             case val > 450000 && val < 500000:
               colorized[key] = {'value':val, 'color' : colors[4]}
               break;
-            case val > 500000 && val < 1000000:
+            case val > 500000 && val < 550000:
               colorized[key] = {'value':val, 'color' : colors[5]}
               break;
-            case val > 1000000 && val < 1500000:
+            case val > 50000 && val < 1500000:
               colorized[key] = {'value':val, 'color' : colors[6]}
               break;
             case val > 1500000 && val < 2000000:
@@ -88,7 +88,8 @@ function SvgGenerator({emissionData, isLoading, setIsLoading}) {
             let countryName = country.attributes["data-name"];
             console.log(countryName);
             console.log(colorized['United States of America']?.color);
-            return <path key={index} d={country.attributes.d} fill={getSafeColor(countryName)} dataid={country.attributes["data-id"]} dataname={country.attributes["data-name"]} id={country.attributes.id} />
+            return <path key={index} d={country.attributes.d} fill={getSafeColor(countryName)} dataid={country.attributes["data-id"]} dataname={country.attributes["data-name"]} id={country.attributes.id} ><rect id="1" x="0" y="0" fill="#22222" width="20" height="20"></rect>
+            </path>
         })
         return elements
 
