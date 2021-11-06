@@ -17,7 +17,7 @@ function SvgGenerator({emissionData}) {
 
     useEffect(() => {
         colorizeData();
-    }, [])
+    }, [isLoading])
 
 
     const colorizeData = () => {
@@ -25,8 +25,8 @@ function SvgGenerator({emissionData}) {
         let colorized = {};
 
         for(const key in emissionData) {
-            let val = Math.trunc(emissionData[key]);
-            switch (val) {
+            let val = emissionData[key];
+            switch (true) {
               case val > 0 && val < 500000:
                 colorized[key] = {'value':val, 'color' : colors[0]}
                 break;
@@ -46,7 +46,6 @@ function SvgGenerator({emissionData}) {
                 colorized[key] = {'value':val, 'color' : colors[5]}
             }
         }
-        console.log(colorized)
 
 
         setColorized(colorized);  
@@ -55,19 +54,25 @@ function SvgGenerator({emissionData}) {
     }
 
     const getSafeColor = (countryName) => {
-      if( colorized[countryName] === undefined) {
+      if(countryName === 'United States') {
+        // Check for American Exceptionalism
+        return colorized['United States of America'].color;
+      } else if( colorized[countryName] === undefined) {
+        // Return light grey hex code for countries that have no data
         return '#D3D3D3'
       } else {
-        return colorized[countryName].color.toString();
+        // Return the countries color
+          return colorized[countryName].color;
+        }
       }
-    }
 
     const createChildElements = () => {
         let countries = WorldMap.children[2].children;
 
         let elements = countries.map((country) => {
             let countryName = country.attributes["data-name"];
-            console.log(colorized[countryName]?.color);
+            console.log(countryName);
+            console.log(colorized['United States of America']?.color);
             return <path d={country.attributes.d} fill={getSafeColor(countryName)} dataid={country.attributes["data-id"]} dataname={country.attributes["data-name"]} id={country.attributes.id} />
         })
         return elements
