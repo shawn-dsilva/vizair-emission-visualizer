@@ -13,9 +13,10 @@ export default function Map() {
   return (
     //The code to render a map goes here.
     <div className="map">
-      <h1>『 ZA WARUDO 』 </h1>
-      <SvgGenerator year={year} setYear={setYear} emissionType={emissionType} setEmissionType={setEmissionType} emissionData={emissionData} setEmissionData={setEmissionData} isLoading={isLoading} setIsLoading={setIsLoading}/>
+      <h1> CO2 Emissions in {year} </h1>
       <SelectParameters year={year} setYear={setYear} emissionType={emissionType} setEmissionType={setEmissionType} emissionData={emissionData} setEmissionData={setEmissionData} />
+      <SvgGenerator year={year} setYear={setYear} emissionType={emissionType} setEmissionType={setEmissionType} emissionData={emissionData} setEmissionData={setEmissionData} isLoading={isLoading} setIsLoading={setIsLoading}/>
+
     </div>
   );
 }

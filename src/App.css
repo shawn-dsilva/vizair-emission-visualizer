@@ -155,4 +155,30 @@
 }
 
 path { stroke:#474646;}
-path:hover {fill: gray;}
+
+.single-year-select-dropdown {
+  width:40%;
+  margin:auto;
+}
+
+.colorbar-container, .numberbar-container {
+  height: 2rem;
+  width: 80%;
+  display: flex;
+  border:1px solid #424242;
+  margin: auto;
+}
+
+.numberbar-container {
+  border:none;
+}
+
+.colorbar-segment {
+  height: 2rem;
+  width: 10%;
+  border-right: 1px solid #424242;
+}
+
+.number-element {
+  margin:0 1.2rem;
+}

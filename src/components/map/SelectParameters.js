@@ -1,6 +1,18 @@
 import React, { useEffect } from 'react'
+import Dropdown from 'react-dropdown';
 
 function SelectParameters({year, setYear, emissionType, setEmissionType, setEmissionData}) {
+
+    const createYearRange = () => {
+        let max = 2014;
+        let min = 1990;
+        let years = [];
+
+        for(let i = min; i<=max; i++) {
+            years.push(i);
+        }
+        return years
+    }
 
     useEffect(() => {
         const fetchEmissionData = () => {
@@ -28,12 +40,15 @@ function SelectParameters({year, setYear, emissionType, setEmissionType, setEmis
             });
         }
         fetchEmissionData();
-    },[])
+    },[year])
 
+    const onSelect = (selection) => {
+        setYear(selection.value);
+    }
     return (
         <div>
-            
-        </div>
+                <Dropdown className='single-year-select-dropdown' options={createYearRange()}  onChange={onSelect}  placeholder="Select the Starting Year" />       
+      </div>
     )
 }
 
