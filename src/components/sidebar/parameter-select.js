@@ -44,18 +44,27 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
     const onChange = (selection) => {
             let countries = Object.keys(datapoints);
         // If selection is found in options, remove it (unchecked)
-        // i.e deselect the option, else add the option ( checked )
-        if(options.includes(selection)) {
+        // i.e deselect the option, add the option ( checked )
+        if(options.includes(selection)) { // Uncheck if selected
             setOptions(options.filter(option => option !== selection));
             setIsCheckedObject({...isCheckedObject, [selection]: false})
+            const searchParams =  new URLSearchParams(window.location.search)
+
+            // Option removed from URL when deselected
+            const uriEncodedSelection = selection.replace("/","%2F").replace(" ","+");
+            let paramsString = searchParams.toString();
+            let newParams = paramsString.replace(`&emissions=${uriEncodedSelection}`,'');
+            window.history.pushState({},'','?'+newParams);
+
             setIsLoading(true);
-        } else if(countries.length >= 2 && options.length >= 3) {
+
+        } else if(countries.length >= 2 && options.length >= 3) { // Error messages if conditions met
             setErrorMessage("You can only chose 3 parameters if you have selected more than one country");
             setIsError(true);
             setIsCheckedObject({...isCheckedObject, [selection]: false})
             setIsError(false);
 
-        } else {
+        } else { // check and add to options array and URL
             setOptions(currOptions => [...currOptions, selection]);
             setIsCheckedObject({...isCheckedObject, [selection]: true})
             const url = new URL(window.location);
