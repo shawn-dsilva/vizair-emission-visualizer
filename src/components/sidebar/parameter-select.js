@@ -59,9 +59,10 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
             const searchParams =  new URLSearchParams(window.location.search)
 
             // Option removed from URL when deselected
-            const uriEncodedSelection = selection.replace("/","%2F").replace(" ","+");
+            const uriEncodedSelection = selection.replace("/","%2F").replaceAll(" ","+").replaceAll("&","%26");
             let paramsString = searchParams.toString();
             let newParams = paramsString.replace(`&emissions=${uriEncodedSelection}`,'');
+            console.log(uriEncodedSelection);
             window.history.pushState({},'','?'+newParams);
 
             setIsLoading(true);
@@ -89,7 +90,6 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
             <div className='checkbox-container'>
                 {makeCheckBoxList()}
             </div>
-            <p>Your Selection : {options + " , "}</p>
 
             { setIsError && <TimedError errorMessage={errorMessage}/>}
         </div>

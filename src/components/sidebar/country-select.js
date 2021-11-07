@@ -44,7 +44,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
         const searchParams =  new URLSearchParams(window.location.search)
 
         // Option removed from URL when deselected
-        const uriEncodedSelection = countryName.replace(" ","+");
+        const uriEncodedSelection = countryName.replaceAll(" ","+");
         let paramsString = searchParams.toString();
         let newParams = paramsString.replace(`&countries=${uriEncodedSelection}`,'');
 

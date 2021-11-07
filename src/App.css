@@ -1,7 +1,7 @@
 .App {
   height: 100vh;
   display: flex;
-  padding: 0 1rem 0 1rem;
+  flex-direction: column;
 }
 
 .sidebar {
@@ -197,4 +197,17 @@ path { stroke:#474646;}
 
 .country-badge:hover {
   background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+}
+
+.graph-container p {
+  color:grey;
+}
+
+.navbar {
+  height: 5%;
+  font-size: 1.5rem;
+  background-color: #474646;
+  color:white;
+  font-weight: 800;
+  padding: 0.5rem 1rem;
 }
