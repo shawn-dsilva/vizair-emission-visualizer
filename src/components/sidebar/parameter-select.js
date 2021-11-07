@@ -58,6 +58,9 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
         } else {
             setOptions(currOptions => [...currOptions, selection]);
             setIsCheckedObject({...isCheckedObject, [selection]: true})
+            const url = new URL(window.location);
+            url.searchParams.append('emissions', selection);
+            window.history.pushState({},'',url);
             setIsLoading(true);
         }
     }

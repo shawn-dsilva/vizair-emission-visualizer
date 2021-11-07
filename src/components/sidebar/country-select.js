@@ -4,7 +4,7 @@ import Dropdown from 'react-dropdown';
 import TimedError from './timed-error';
 
 
-export default function CountrySelect({emissionType, setDatapoints, datapoints, countries, setCountries}) {
+export default function CountrySelect({emissionType, setDatapoints, datapoints, countries, setCountries, }) {
     //Write logic to render all countries as dropdown options
     const [countryList, setCountryList] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
@@ -12,7 +12,10 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
     useEffect(() => {
         fetchCountryList();
         // fetchCountryData('Austria');
-    }, [])
+            countries.forEach((param) => {
+                fetchCountryData(param);
+            })
+    }, [countries])
 
 
     const fetchCountryList = () => {
