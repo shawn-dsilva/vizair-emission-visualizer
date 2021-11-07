@@ -182,3 +182,19 @@ path { stroke:#474646;}
 .number-element {
   margin:0 1.2rem;
 }
+
+.country-badge {
+  padding:0.5rem 0.8rem;
+  border-radius: 20px;
+  margin: 0.2rem;
+  cursor:pointer;
+  color:white;
+}
+
+.country-badge-container {
+  margin:1.5rem 0;
+}
+
+.country-badge:hover {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+}

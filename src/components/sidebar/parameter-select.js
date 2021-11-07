@@ -9,7 +9,15 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
     const [isError, setIsError] = useState(false);
 
     useEffect(() => {
-        makeParamsList()
+        const preCheck = () => {                
+            let checkedObject = {};
+            options.forEach((option) => {
+                checkedObject[option] = true;
+            })
+            setIsCheckedObject(checkedObject);
+        }
+        preCheck();
+        makeParamsList();
     }, [datapoints])
 
     const makeParamsList = () => {
@@ -77,7 +85,7 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
     return(
         <div className="parameter-select">
             <label>Select Emission Type Dataset</label>
-            {/* <Dropdown options={emissionTypes} value={option} onChange={onSelect} placeholder="Select an Emission Type" /> */}
+            <p>You can select and deselect emission types, not all of the selected countries will have the same emission types however</p>
             <div className='checkbox-container'>
                 {makeCheckBoxList()}
             </div>
