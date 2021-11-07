@@ -99,8 +99,6 @@ function SvgGenerator({year, emissionData, isLoading, setIsLoading}) {
 
         let elements = countries.map((country, index) => {
             let countryName = country.attributes["data-name"];
-            console.log(countryName);
-            console.log(colorized['United States of America']?.color);
             return <path key={index} d={country.attributes.d} fill={getSafeColor(countryName)} dataid={country.attributes["data-id"]} dataname={country.attributes["data-name"]} id={country.attributes.id} ><rect id="1" x="0" y="0" fill="#22222" width="20" height="20"></rect>
             </path>
         })

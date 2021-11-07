@@ -12,10 +12,17 @@ export default function Sidebar() {
   const [endYear, setEndYear] = useState(2014);
   const [isLoading, setIsLoading] = useState(false);
 
+
+const getQuery = () => {
+  const searchParams =  new URLSearchParams(window.location.search)
+  console.log(searchParams.getAll('countries'));
+}
+
   return (
     <div className="sidebar">
       <h1>Visualization Controls</h1>
       <div className="dropdowns">
+        {getQuery()}
         <CountrySelect countries={country} setCountries={setCountry} emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints}/>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints} isLoading={isLoading} setIsLoading={setIsLoading}/>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>

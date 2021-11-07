@@ -35,6 +35,22 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
         if(countries.length !== 3) {
             fetchCountryData(selection.value);
             setCountries([...countries, selection.label])
+
+
+            let url; 
+
+            // if(!window.location.search) {
+            //      url = new URL(window.location);
+            //      url.searchParams.set('countries', selection.value);
+
+            // } else {
+            //     url = new URL(window.location.search);
+            //     url.searchParams.append()
+            // }
+            url = new URL(window.location);
+            url.searchParams.append('countries', selection.value);
+            window.history.pushState({},'',url);
+
         } else {
             setErrorMessage("Maximum of 3 countries are allowed");
         }
