@@ -3,6 +3,7 @@ import Graph from './graph';
 import CountrySelect from './country-select';
 import ParameterSelect from './parameter-select';
 import YearRangeSelect from './year-range-select';
+import ErrorBoundary from './ErrorBoundary';
 
 export default function Sidebar() {
   const [options, setOptions] = useState([]);
@@ -19,6 +20,7 @@ const getQuery = () => {
   console.log(searchParams.getAll('emissions'));
   setCountry(searchParams.getAll('countries'));
   setOptions(searchParams.getAll('emissions'));
+  setIsLoading(true);
 }
 
   useEffect( () => {
@@ -29,11 +31,20 @@ const getQuery = () => {
     <div className="sidebar">
       <h1>Visualization Controls</h1>
       <div className="dropdowns">
+      <ErrorBoundary>
         <CountrySelect countries={country} setCountries={setCountry} emissionType={options} setDatapoints={setDatapoints} datapoints={datapoints} />
+        </ErrorBoundary>
+
+        <ErrorBoundary>
          <ParameterSelect options={options} setOptions={setOptions} datapoints={datapoints} isLoading={isLoading} setIsLoading={setIsLoading}/>
+         </ErrorBoundary>
         <YearRangeSelect setStartYear={setStartYear} setEndYear={setEndYear} startYear={startYear} endYear={endYear}/>
+
       </div>
+
+      <ErrorBoundary>
       <Graph countryList={datapoints} options={options} startYear={startYear} endYear={endYear} isLoading={isLoading} setIsLoading={setIsLoading} country={country}  />
+      </ErrorBoundary>
     </div>
   );
 }

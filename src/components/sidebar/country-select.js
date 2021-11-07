@@ -11,10 +11,11 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
 
     useEffect(() => {
         fetchCountryList();
+        console.log(countries);
         // fetchCountryData('Austria');
-            countries.forEach((param) => {
-                fetchCountryData(param);
-            })
+        countries.forEach((param) => {
+            fetchCountryData(param);
+        });
     }, [countries])
 
 
@@ -26,17 +27,23 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
 
 
     const fetchCountryData = (countryName) => {
-        fetch(`./json/byCountry/${countryName}.json`)
-        .then(response => response.json())
-        .then((newCountryData) => {
-            let newCountryObject = {[countryName]: newCountryData}
-            setDatapoints(currCountries => [...currCountries, newCountryObject])
-        });
+
+        const index = datapoints.findIndex( (country) => Object.keys(country)[0] === countryName);
+        console.log(index);
+        if(index === -1) {
+            fetch(`./json/byCountry/${countryName}.json`)
+            .then(response => response.json())
+            .then((newCountryData) => {
+                let newCountryObject = {[countryName]: newCountryData}
+                setDatapoints(currCountries => [...currCountries, newCountryObject])
+            });
+        }
+        
     }
   
     const onSelect = (selection) => {
         if(countries.length !== 3) {
-            fetchCountryData(selection.value);
+            // fetchCountryData(selection.value);
             setCountries([...countries, selection.label])
 
 

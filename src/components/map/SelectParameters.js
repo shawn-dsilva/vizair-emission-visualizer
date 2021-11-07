@@ -35,7 +35,6 @@ function SelectParameters({year, setYear, emissionType, setEmissionType, setEmis
 
                     }
                 })
-                console.log(filteredData);
                 setEmissionData(filteredData);
             });
         }
