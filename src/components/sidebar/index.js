@@ -20,6 +20,14 @@ const getQuery = () => {
   console.log(searchParams.getAll('emissions'));
   setCountry(searchParams.getAll('countries'));
   setOptions(searchParams.getAll('emissions'));
+  if(searchParams.has('startYear')) {
+    setStartYear(searchParams.getAll('startYear'));
+  }
+  if(searchParams.has('endYear')) {
+    setEndYear(searchParams.getAll('endYear'));
+
+  }
+
   setIsLoading(true);
 }
 

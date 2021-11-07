@@ -91,7 +91,7 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
                 {makeCheckBoxList()}
             </div>
 
-            { setIsError && <TimedError errorMessage={errorMessage}/>}
+            { isError && <TimedError errorMessage={errorMessage}/>}
         </div>
     )
 }
