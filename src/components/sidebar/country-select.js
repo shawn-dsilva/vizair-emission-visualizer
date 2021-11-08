@@ -47,7 +47,14 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
         // Option removed from URL when deselected
         const uriEncodedSelection = countryName.replaceAll(" ","+");
         let paramsString = searchParams.toString();
-        let newParams = paramsString.replace(`&countries=${uriEncodedSelection}`,'');
+        let newParams;
+        console.log(paramsString);
+        if(paramsString.includes(`countries=${uriEncodedSelection}`)) {
+            newParams = paramsString.replace(`countries=${uriEncodedSelection}`,'');
+        } else {
+            newParams = paramsString.replace(`&countries=${uriEncodedSelection}`,'');
+
+        } 
 
         window.history.pushState({},'','?'+newParams);
     }
