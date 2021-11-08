@@ -1,18 +1,12 @@
 import React, {useState,useEffect} from 'react'
 
-function TimedError({errorMessage}) {
-    const [visible, setVisible] = useState(false)
+function TimedError({errorMessage, visible, setVisible}) {
    useEffect(() => {
-     if(!errorMessage){
-      setVisible(false)
-      return
-     }
-     setVisible(true)
      const timer = setTimeout(() => {
        setVisible(false)
-     }, 5000);
+     }, 2000);
      return () => clearTimeout(timer);
-   }, [errorMessage]) 
+   }, [visible]) 
    if(!visible) return null
     return (
         <div className="error-message">

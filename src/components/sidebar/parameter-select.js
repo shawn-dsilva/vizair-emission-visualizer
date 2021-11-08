@@ -71,7 +71,6 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
             setErrorMessage("You can only chose 3 parameters if you have selected more than one country");
             setIsError(true);
             setIsCheckedObject({...isCheckedObject, [selection]: false})
-            setIsError(false);
 
         } else { // check and add to options array and URL
             setOptions(currOptions => [...currOptions, selection]);
@@ -86,12 +85,12 @@ export default function ParameterSelect({options, setOptions, datapoints, isLoad
     return(
         <div className="parameter-select">
             <label>Select Emission Type Dataset</label>
-            <p>You can select and deselect emission types, not all of the selected countries will have the same emission types however</p>
+            <p>You can select and deselect emission types, not all of the selected countries will have the same emission types however, emission type checkboxes are loaded upon selecting a country</p>
             <div className='checkbox-container'>
                 {makeCheckBoxList()}
             </div>
 
-            { isError && <TimedError errorMessage={errorMessage}/>}
+            <TimedError visible={isError} setVisible={setIsError} errorMessage={errorMessage}/>
         </div>
     )
 }

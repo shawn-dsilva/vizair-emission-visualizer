@@ -10,6 +10,8 @@ export default function YearRangeSelect({setStartYear, setEndYear, startYear, en
 
     useEffect(() => {
         if(Math.abs(startYear - endYear) < 6) {
+            setErrorMessage(`Difference between values of starting year and ending year is less than six, resetting year values to default( 1990-2014 )`)
+            setIsError(true);
             setStartYear(1990);
             setEndYear(2014);
         }
@@ -51,7 +53,7 @@ export default function YearRangeSelect({setStartYear, setEndYear, startYear, en
     }
 
     const onSelectEnd = (selection) => {
-        if(Math.abs(selection.value - endYear) < 6) {
+        if(Math.abs(startYear - selection.value) < 6) {
             setErrorMessage(`Difference between ${startYear} and ${selection.value} is lesser than six, leave a gap of six years between start and end years for a proper chart to be drawn`)
             setIsError(true);
         } else {
@@ -67,7 +69,7 @@ export default function YearRangeSelect({setStartYear, setEndYear, startYear, en
             <label>Choose A Time Period</label>
             <p>Choose a starting and ending year, 1990( minimum ) to 2014( maximum ) are the defaults.</p>
             <p>If the starting and ending years from URL parameters have a difference of less than six, both are reset to default values</p>
-            { isError && <TimedError errorMessage={errorMessage}/>}
+            { isError && <TimedError visible={isError} setVisible={setIsError} errorMessage={errorMessage}/>}
             <div className='year-select-flex'>
                 <Dropdown className='year-select-dropdown' options={startYears} value={startYear[0]}  onChange={onSelectStart}  placeholder="Select the Starting Year" />
                 <Dropdown className='year-select-dropdown' options={endYears} value={endYear[0]} onChange={onSelectEnd} placeholder="Select the Ending Year" />

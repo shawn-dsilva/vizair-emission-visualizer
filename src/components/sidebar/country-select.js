@@ -13,6 +13,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
     //Write logic to render all countries as dropdown options
     const [countryList, setCountryList] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         fetchCountryList();
@@ -81,6 +82,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
 
         } else {
             setErrorMessage("Maximum of 3 countries are allowed");
+            setIsError(true);
         }
         
     }
@@ -93,7 +95,7 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
             <p>You can select countries using the dropdown, to deselect any country just click on the country badge that appears under the dropdown or select the same country in the dropdown</p>
             <Dropdown options={countryList}  onChange={onSelect} placeholder="Select a Country" />
             <MakeCountryBadges/>
-            <TimedError errorMessage={errorMessage}/>
+            <TimedError visible={isError} setVisible={setIsError} errorMessage={errorMessage}/>
 
         </div>
     )
