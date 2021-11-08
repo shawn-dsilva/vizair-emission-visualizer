@@ -15,9 +15,7 @@ export default function Sidebar() {
 
 
 const getQuery = () => {
-  const searchParams =  new URLSearchParams(window.location.search)
-  console.log(searchParams.getAll('countries'));
-  console.log(searchParams.getAll('emissions'));
+  const searchParams =  new URLSearchParams(window.location.search);
   setCountry(searchParams.getAll('countries'));
   setOptions(searchParams.getAll('emissions'));
   if(searchParams.has('startYear')) {

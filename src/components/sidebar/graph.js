@@ -3,10 +3,8 @@ import { Chart } from 'react-charts';
 import LoadingAnimation from '../utils/LoadingAnimation';
 
 export default function Graph({ countryList, options, startYear, endYear, isLoading, setIsLoading, country }) {
-  const [data, setData] = useState([]);
   const [plottingData, setPlottingData] = useState([]);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  // const [filteredData, setFilteredData] = useState([]);
 
   const colors = [
    ['#ff0036', '#ff7390', '#ff91a9'],
@@ -110,22 +108,6 @@ export default function Graph({ countryList, options, startYear, endYear, isLoad
   useEffect(() => {
     filterByOptions();
   }, [countryList, options, startYear, endYear]);
-
-  const dataTemp = React.useMemo(
-    () => [
-      {
-        label: 'Series 1',
-        data: [
-          [0, 1],
-          [1, 2],
-          [2, 4],
-          [3, 2],
-          [4, 7],
-        ],
-      },
-    ],
-    []
-  );
 
   const axes = [
     { primary: true, type: 'time', position: 'bottom' },

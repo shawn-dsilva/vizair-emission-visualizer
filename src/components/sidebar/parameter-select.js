@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import 'react-dropdown/style.css';
 import TimedError from './timed-error';
 
-export default function ParameterSelect({options, setOptions, datapoints, isLoading, setIsLoading}) {
+export default function ParameterSelect({options, setOptions, datapoints, setIsLoading}) {
     const [emissionTypes, setEmissionTypes] = useState([]);
     const [isCheckedObject, setIsCheckedObject] = useState({});
     const [errorMessage, setErrorMessage] = useState("");

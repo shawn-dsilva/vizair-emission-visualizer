@@ -9,8 +9,7 @@ const colors = [
     ['#ffc400','#ffce56', '#ffe5a6' ],
    ]
 
-export default function CountrySelect({emissionType, setDatapoints, datapoints, countries, setCountries, }) {
-    //Write logic to render all countries as dropdown options
+export default function CountrySelect({ setDatapoints, datapoints, countries, setCountries, }) {
     const [countryList, setCountryList] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [isError, setIsError] = useState(false);
@@ -80,7 +79,6 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
         if(countries.includes(selection.value)) {
             removeCountry(selection.label);
         } else if(countries.length !== 3) {
-            // fetchCountryData(selection.value);
             setCountries([...countries, selection.label])
             let url; 
             url = new URL(window.location);
@@ -94,8 +92,6 @@ export default function CountrySelect({emissionType, setDatapoints, datapoints, 
         
     }
     
-    // let options = makeCountryList();
-    // const defaultOption = options[0];
     return(
         <div className="country-select">
             <label>Select From Available Countries</label>
